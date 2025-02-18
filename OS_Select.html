@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="OS_Select.css">
+    <title>Operating_System_Selection_Automation_3.0</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+        
+        .heading {
+            margin-bottom: 40px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            max-width: 100%;
+            padding: 0 20px;
+        }
+        
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 200px;
+        }
+        
+        .card:hover {
+            transform: scale(1.05);
+        }
+        
+        .card img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+            transition: filter 0.3s ease;
+        }
+        
+        .card:hover img {
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.2));
+        }
+        
+        .card_title {
+            font-weight: bold;
+            text-align: center;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        
+        @media (max-height: 500px) {
+            .heading {
+                margin-bottom: 20px;
+                font-size: 20px;
+            }
+            
+            .card img {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .card {
+                padding: 15px;
+                width: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="heading">CHOOSE YOUR OPERATING SYSTEM</div>
+    <marquee behavior="redditmedia" direction="right"><div class="heading1">Windows Operating System's Guide is under Development Phase.Try our Linux Guide for now.Thank you for your Support.</div></marquee>
+    <div class="container">
+        <div class="card" onclick="window.open('Req_Win.html', '_blank')">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Windows_logo_-_2021.svg" alt="Windows Logo">
+            <div class="card_title">Windows Operating System</div>
+        </div>
+        <div class="card" onclick="window.open('Req_Linux.html', '_blank')">
+            <img src="https://styles.redditmedia.com/t5_3jxys/styles/communityIcon_z9jsfziqpdac1.jpg?format=pjpg&s=4ded88935752780a668f7d11d20062d99c780ba9" alt="Parrot OS Logo">
+            <div class="card_title">Parrot Operating System</div>
+        </div>
+    </div>
+</body>
+</html>

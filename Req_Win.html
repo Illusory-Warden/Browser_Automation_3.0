@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Req.css">
+    <title>Windows_Requirements_Automation_3.0</title>
+    
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="card">
+                <div class="card_title__container">
+                    <h1 class="card_title">Requirements</h1>
+                    <p class="card_paragraph">
+                        Make sure you have the following installed or downloaded on the Microsoft Edge:<br>
+                        <b style="color: red;">Download Edge-Extensions after STEP 8</b><br>
+                        <b style="color: greenyellow;">For now skip download-link</b><br>
+                        <b style="color: green;">👇👇👇👇Scroll Down When you have those Requirements avaliable👇👇👇👇</b>
+                    </p>
+                </div>
+                <hr class="line">
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="01">
+                        <label for="01">Windows Based Operating System.</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="02">
+                        <label for="02">Internet Connectivity</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="03">
+                        <label for="03">Anti-Virus Disabled</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="04">
+                        <label for="04">AdGuard AdBlocker Extension</label>
+                        <a href="https://microsoftedge.microsoft.com/addons/detail/adguard-adblocker/pdffkfellgipmhklpdmokmckkkfcopbh?hl=en-US" target="_blank" class="download-link">Download Here</a>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="05">
+                        <label for="05">I don't care about cookies</label>
+                        <a href="https://microsoftedge.microsoft.com/addons/detail/i-dont-care-about-cookie/oholpbloipjbbhlhohaebmieiiieioal?hl=en-US" target="_blank" class="download-link">Download Here</a>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="06">
+                        <label for="06">I don't care about cookies</label>
+                        <a href="https://microsoftedge.microsoft.com/addons/detail/popup-blocker-strict/ijhfkkgjgpcplfeajghagkcebakjcpge?hl=en-US" target="_blank" class="download-link">Download Here</a>
+                    </div>
+                </div>
+            </div>
+            <button class="ready-button" onclick="window.location.href='Terminal_Linu.html'"> <!--Add "x" here to activate-->
+                I'm Ready
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function handleScroll() {
+            const button = document.querySelector('.ready-button');
+            const scrollPosition = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            
+            // Show button when user has scrolled 20% of the page
+            const scrollThreshold = documentHeight * 0.1;
+            
+            if (scrollPosition > scrollThreshold) {
+                button.classList.add('visible');
+            } else {
+                button.classList.remove('visible');
+            }
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('resize', handleScroll);
+        setTimeout(handleScroll, 100);
+    </script>
+</body>
+</html>
