@@ -201,27 +201,262 @@
 
 
 
+<!-- Code Copy Card with Image -->
+<div class="col-12 mt-3">
+  <div class="card shadow-sm">
+    <div class="p-3">
+      <img src="W_Step_1.png" class="card-img-top rounded-3" 
+           alt="Code Snippet Thumbnail" 
+           style="padding: 5px; border: 3px solid #1BFD9C;">
+    </div>
+    <div class="card-body">
+        <p class="card-text">Step 1: Open Terminal in Desktop Directory.<br>
+
+          🔹Breakdown:<br>
+            -----Open Command Prompt on Windows. <br>
+            -----Ensure you are in the Desktop directory.<br>
+            -----This is where the Browser_Automation_3.0 folder will be created. <br>
+          <br>
+          💡 Essential for setting up the automation environment!🖥️🚀
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+                
+            </div>
+            <small class="text-body-secondary">Instruction 1</small>
+        </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- Code Copy Card with Image -->
 <div class="col-12 mt-3">
   <div class="card shadow-sm">
     <div class="p-3">
-      <img src="Step_1.png" class="card-img-top rounded-3" 
+      <img src="W_Step_2.png" class="card-img-top rounded-3" 
            alt="Code Snippet Thumbnail" 
            style="padding: 5px; border: 3px solid #1BFD9C;">
     </div>
     <div class="card-body">
-        <p class="card-text">This command creates a new directory called Browser_Automation on your Desktop.
+        <p style="color: greenyellow;"><b>👇👇👇👇👇 COPY THE CODE BELOW 👇👇👇👇👇</b></p>
+        <p style="color: red;"><b>CLICK PASTE ANYWAY BUTTON AND WAIT FOR THE TASK TO COMPLETE.</b></p>
+        <p class="card-text">This script automates the process of setting up a complete Microsoft Edge browser automation environment. 🚀 It handles everything from creating a project directory to installing necessary dependencies, configuring the webdriver, and generating a Python script template for browser automation tasks. 💻
           <br>
-          🔹 Breakdown:
-          mkdir → Stands for "make directory" and creates a new folder.<br>
-          ~/Desktop/Browser_Automation → Specifies the location and name of the folder (on the Desktop).<br>
-          💡 Use this to organize your browser automation projects! 📂🚀</p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">mkdir ~/Desktop/Browser_Automation</code></pre>
+          🔹 Key Features: ✨<br>
+          📁 Automatically creates a dedicated project folder on the Desktop<br>
+          🐍 Sets up a Python virtual environment to isolate dependencies<br>
+          📦 Installs essential Python packages (Selenium, Requests, BeautifulSoup4)<br>
+          🔍 Detects the installed Edge browser version<br>
+          ⬇️ Downloads the compatible EdgeDriver that matches your browser version<br>
+          📝 Creates a Python automation template with essential imports and base structure<br>
+          ▶️ Generates a convenient batch file to run the automation with a single click</p>
+        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">@echo off
+title Edge Browser Automation Setup
+
+REM Create project directory on Desktop
+echo Creating project directory on Desktop...
+mkdir "%USERPROFILE%\Desktop\Browser_Automation_3.0"
+cd "%USERPROFILE%\Desktop\Browser_Automation_3.0"
+
+REM Set up Python virtual environment
+echo Setting up Python virtual environment...
+python -m venv myenv
+call myenv\Scripts\activate.bat
+
+REM Install required Python packages
+echo Installing required Python packages...
+pip install selenium requests beautifulsoup4
+
+REM Create a temporary batch file to get Edge version
+echo Detecting Microsoft Edge version...
+echo @echo off > get_edge_version.bat
+echo for /f "tokens=2 delims==" %%I in ('wmic datafile where name^="C:\\Program Files ^(x86^)\\Microsoft\\Edge\\Application\\msedge.exe" get Version /value') do echo %%I >> get_edge_version.bat
+call get_edge_version.bat > edge_version.txt
+set /p EDGE_VERSION=<edge_version.txt
+del get_edge_version.bat
+del edge_version.txt
+
+REM If version detection failed, use a default version
+if "%EDGE_VERSION%"=="" (
+    echo Edge version detection failed, using default version...
+    set EDGE_VERSION=133.0.3065.69
+)
+
+echo Detected Edge version: %EDGE_VERSION%
+
+REM Download Edge WebDriver
+echo Downloading EdgeDriver version %EDGE_VERSION%...
+curl -L -o edgedriver_win64.zip https://msedgedriver.azureedge.net/%EDGE_VERSION%/edgedriver_win64.zip
+
+REM Extract the driver
+echo Extracting EdgeDriver...
+tar -xf edgedriver_win64.zip
+del edgedriver_win64.zip
+
+REM Verify EdgeDriver version
+echo Verifying EdgeDriver version...
+msedgedriver.exe --version
+
+REM Create the automation script
+echo Creating Edge automation script...
+copy NUL EdgeAutomation.py
+
+echo from selenium import webdriver > EdgeAutomation.py
+echo from selenium.webdriver.common.keys import Keys >> EdgeAutomation.py
+echo from selenium.webdriver.common.by import By >> EdgeAutomation.py
+echo from selenium.webdriver.support.ui import WebDriverWait >> EdgeAutomation.py
+echo from selenium.webdriver.support import expected_conditions as EC >> EdgeAutomation.py
+echo from selenium.common.exceptions import TimeoutException, ElementClickInterceptedException >> EdgeAutomation.py
+echo import time >> EdgeAutomation.py
+echo import random >> EdgeAutomation.py
+echo import requests >> EdgeAutomation.py
+echo from bs4 import BeautifulSoup >> EdgeAutomation.py
+echo import json >> EdgeAutomation.py
+echo import os >> EdgeAutomation.py
+echo. >> EdgeAutomation.py
+echo class EdgeAutomation: >> EdgeAutomation.py
+echo     def __init__(self): >> EdgeAutomation.py
+echo         # Windows-specific EdgeDriver setup >> EdgeAutomation.py
+echo         self.options = webdriver.EdgeOptions() >> EdgeAutomation.py
+echo         self.options.add_argument("--start-maximized") >> EdgeAutomation.py
+echo         self.options.add_argument("--disable-notifications") >> EdgeAutomation.py
+echo         self.options.add_experimental_option("excludeSwitches", ["enable-logging"]) >> EdgeAutomation.py
+echo. >> EdgeAutomation.py
+echo         # Get the current directory >> EdgeAutomation.py
+echo         current_dir = os.path.dirname(os.path.abspath(__file__)) >> EdgeAutomation.py
+echo. >> EdgeAutomation.py
+echo         # Path to the msedgedriver.exe in the current directory >> EdgeAutomation.py
+echo         edge_driver_path = os.path.join(current_dir, "msedgedriver.exe") >> EdgeAutomation.py
+echo. >> EdgeAutomation.py
+echo         # Create Edge driver with the path and options >> EdgeAutomation.py
+echo         self.driver = webdriver.Edge(options=self.options) >> EdgeAutomation.py
+
+REM Creation of other methods truncated for brevity - create a separate batch file to complete the script
+
+echo. >> EdgeAutomation.py
+echo # Additional code should be copy-pasted from the provided artifact >> EdgeAutomation.py
+echo. >> EdgeAutomation.py
+echo if __name__ == "__main__": >> EdgeAutomation.py
+echo     automation = EdgeAutomation() >> EdgeAutomation.py
+echo     automation.run_automation() >> EdgeAutomation.py
+
+REM Create a run script
+echo @echo off > run_automation.bat
+echo cd "%USERPROFILE%\Desktop\Browser_Automation_3.0" >> run_automation.bat
+echo call myenv\Scripts\activate.bat >> run_automation.bat
+echo python EdgeAutomation.py >> run_automation.bat
+echo pause >> run_automation.bat
+
+echo.
+echo Setup completed successfully!
+
+echo.
+pause</code></pre>
         <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
                 <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="mkdir ~/Desktop/Browser_Automation">Copy</button>
+                        data-code="@echo off
+title Edge Browser Automation Setup
+
+REM Create project directory on Desktop
+echo Creating project directory on Desktop...
+mkdir &quot;%USERPROFILE%\Desktop\Browser_Automation_3.0&quot;
+cd &quot;%USERPROFILE%\Desktop\Browser_Automation_3.0&quot;
+
+REM Set up Python virtual environment
+echo Setting up Python virtual environment...
+python -m venv myenv
+call myenv\Scripts\activate.bat
+
+REM Install required Python packages
+echo Installing required Python packages...
+pip install selenium requests beautifulsoup4
+
+REM Create a temporary batch file to get Edge version
+echo Detecting Microsoft Edge version...
+echo @echo off > get_edge_version.bat
+echo for /f &quot;tokens=2 delims==&quot; %%I in ('wmic datafile where name^=&quot;C:\\Program Files ^(x86^)\\Microsoft\\Edge\\Application\\msedge.exe&quot; get Version /value') do echo %%I >> get_edge_version.bat
+call get_edge_version.bat > edge_version.txt
+set /p EDGE_VERSION=<edge_version.txt
+del get_edge_version.bat
+del edge_version.txt
+
+REM If version detection failed, use a default version
+if &quot;%EDGE_VERSION%&quot;==&quot;&quot; (
+    echo Edge version detection failed, using default version...
+    set EDGE_VERSION=133.0.3065.69
+)
+
+echo Detected Edge version: %EDGE_VERSION%
+
+REM Download Edge WebDriver
+echo Downloading EdgeDriver version %EDGE_VERSION%...
+curl -L -o edgedriver_win64.zip https://msedgedriver.azureedge.net/%EDGE_VERSION%/edgedriver_win64.zip
+
+REM Extract the driver
+echo Extracting EdgeDriver...
+tar -xf edgedriver_win64.zip
+del edgedriver_win64.zip
+
+REM Verify EdgeDriver version
+echo Verifying EdgeDriver version...
+msedgedriver.exe --version
+
+REM Create the automation script
+echo Creating Edge automation script...
+copy NUL EdgeAutomation.py
+
+echo from selenium import webdriver > EdgeAutomation.py
+echo from selenium.webdriver.common.keys import Keys >> EdgeAutomation.py
+echo from selenium.webdriver.common.by import By >> EdgeAutomation.py
+echo from selenium.webdriver.support.ui import WebDriverWait >> EdgeAutomation.py
+echo from selenium.webdriver.support import expected_conditions as EC >> EdgeAutomation.py
+echo from selenium.common.exceptions import TimeoutException, ElementClickInterceptedException >> EdgeAutomation.py
+echo import time >> EdgeAutomation.py
+echo import random >> EdgeAutomation.py
+echo import requests >> EdgeAutomation.py
+echo from bs4 import BeautifulSoup >> EdgeAutomation.py
+echo import json >> EdgeAutomation.py
+echo import os >> EdgeAutomation.py
+echo. >> EdgeAutomation.py
+echo class EdgeAutomation: >> EdgeAutomation.py
+echo     def __init__(self): >> EdgeAutomation.py
+echo         # Windows-specific EdgeDriver setup >> EdgeAutomation.py
+echo         self.options = webdriver.EdgeOptions() >> EdgeAutomation.py
+echo         self.options.add_argument(&quot;--start-maximized&quot;) >> EdgeAutomation.py
+echo         self.options.add_argument(&quot;--disable-notifications&quot;) >> EdgeAutomation.py
+echo         self.options.add_experimental_option(&quot;excludeSwitches&quot;, [&quot;enable-logging&quot;]) >> EdgeAutomation.py
+echo. >> EdgeAutomation.py
+echo         # Get the current directory >> EdgeAutomation.py
+echo         current_dir = os.path.dirname(os.path.abspath(__file__)) >> EdgeAutomation.py
+echo. >> EdgeAutomation.py
+echo         # Path to the msedgedriver.exe in the current directory >> EdgeAutomation.py
+echo         edge_driver_path = os.path.join(current_dir, &quot;msedgedriver.exe&quot;) >> EdgeAutomation.py
+echo. >> EdgeAutomation.py
+echo         # Create Edge driver with the path and options >> EdgeAutomation.py
+echo         self.driver = webdriver.Edge(options=self.options) >> EdgeAutomation.py
+
+REM Creation of other methods truncated for brevity - create a separate batch file to complete the script
+
+echo. >> EdgeAutomation.py
+echo # Additional code should be copy-pasted from the provided artifact >> EdgeAutomation.py
+echo. >> EdgeAutomation.py
+echo if __name__ == &quot;__main__&quot;: >> EdgeAutomation.py
+echo     automation = EdgeAutomation() >> EdgeAutomation.py
+echo     automation.run_automation() >> EdgeAutomation.py
+
+REM Create a run script
+echo @echo off > run_automation.bat
+echo cd &quot;%USERPROFILE%\Desktop\Browser_Automation_3.0&quot; >> run_automation.bat
+echo call myenv\Scripts\activate.bat >> run_automation.bat
+echo python EdgeAutomation.py >> run_automation.bat
+echo pause >> run_automation.bat
+
+echo.
+echo Setup completed successfully!
+
+echo.
+pause">Copy</button>
             </div>
             <small class="text-body-secondary">Command 1</small>
         </div>
@@ -229,25 +464,508 @@
   </div>
 </div>
 
+
 <!-- Code Copy Card with Image -->
 <div class="col-12 mt-3">
   <div class="card shadow-sm">
     <div class="p-3">
-      <img src="Step_2.png" class="card-img-top rounded-3" 
+      <img src="W_Step_3.png" class="card-img-top rounded-3" 
            alt="Code Snippet Thumbnail" 
            style="padding: 5px; border: 3px solid #1BFD9C;">
     </div>
     <div class="card-body">
-        <p class="card-text">This command updates your Parrot OS:
-          <br>
-          sudo apt update → Refreshes package lists.<br>
-          sudo apt upgrade -y → Installs available updates automatically.<br>
-          💡 Keeps your system secure and up-to-date! 🚀</p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">sudo apt update && sudo apt upgrade -y</code></pre>
+        <p class="card-text">✅Setup Completed Successfully!<br>
+
+          🔹 Breakdown:<br>  
+          ----- If you see this output, all the necessary requirements for running the <b>Edge Browser Automation Script</b> have been installed and set up correctly.<br>
+          ----- You are now ready to proceed with the next steps of executing the automation. <br>
+          </p>
         <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="sudo apt update && sudo apt upgrade -y">Copy</button>
+
+            </div>
+            <small class="text-body-secondary">Instruction 2</small>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- Code Copy Card with Image -->
+<div class="col-12 mt-3">
+  <div class="card shadow-sm">
+    <div class="p-3">
+      <img src="W_Step_4.png" class="card-img-top rounded-3" 
+           alt="Code Snippet Thumbnail" 
+           style="padding: 5px; border: 3px solid #1BFD9C;">
+    </div>
+    <div class="card-body">
+        <p class="card-text">📂Open the Newly Created Folder!<br>
+
+          🔹Breakdown:<br> 
+          ----- A folder named "Browser_Automation_3.0" has been successfully created on your Desktop.<br>
+          ----- This folder contains essential files like EdgeAutomation.py, run_automation.bat, and the virtual environment (myenv).
+          </p>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+
+            </div>
+            <small class="text-body-secondary">Instruction 3</small>
+        </div>
+    </div>
+  </div>
+</div>
+   
+
+<div class="col-12 mt-3">
+  <div class="card shadow-sm">
+    <div class="p-3">
+      <img src="W_Step_5.png" class="card-img-top rounded-3" 
+           alt="Open with Visual Studio Code" 
+           style="padding: 5px; border: 3px solid #1BFD9C;">
+    </div>
+    <div class="card-body">
+        <p class="card-text">
+          <b>📝 Open EdgeAutomation.py in Visual Studio Code!</b><br><br>
+          <b>🔹 Breakdown:</b><br>
+          - Right-click on the <b>EdgeAutomation.py</b> file.<br>
+          - Select <b>"Open with Code"</b> to launch it in <b>Visual Studio Code</b>.<br>
+          - If VS Code is not installed, download it from the <a href="https://code.visualstudio.com/" target="_blank">official website</a>.<br><br>
+          <b>💡 Next Step:</b> Once the file is open, you’re ready to modify and run your automation script! 🚀<br>
+        </p>
+        <div class="d-flex justify-content-between align-items-center">
+            <div></div>
+            <small class="text-body-secondary">Instruction 4</small>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- Code Copy Card -->
+<div class="col-12 mt-3">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <p style="color: yellow;"><b>👇👇👇👇👇 ----- Copy the Code below and paste it into the file EdgeAutomation.py Opened in the VS Code ----- 👇👇👇👇👇</b></p>
+        <p class="card-text">Edge Browser Automation Tool for Windows<br>
+          🔹 Features:<br>
+          Automates searches in Microsoft Edge, handles cookie popups automatically, and supports both manual and trending topic searches.<br>
+          💡 Perfect for browser automation testing and search experiments! 🌐🚀</p>
+        <pre class="bg-light p-3 rounded text-dark"><code id="automation-code" class="fw-bold">from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException, ElementClickInterceptedException
+import time
+import random
+import requests
+from bs4 import BeautifulSoup
+import json
+import os
+ 
+class EdgeAutomation:
+    def __init__(self):
+        # Windows-specific EdgeDriver setup
+        self.options = webdriver.EdgeOptions()
+        self.options.add_argument("--start-maximized")
+        self.options.add_argument("--disable-notifications")
+        self.options.add_experimental_option("excludeSwitches", ["enable-logging"])
+        
+        # Get the current directory
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        
+        # Path to the msedgedriver.exe in the current directory
+        edge_driver_path = os.path.join(current_dir, "msedgedriver.exe")
+        
+        # Create Edge driver with the path and options
+        self.driver = webdriver.Edge(options=self.options)
+ 
+    def wait_for_element(self, by, value, timeout=15):
+        """Enhanced wait function with better error handling"""
+        try:
+            return WebDriverWait(self.driver, timeout).until(
+                EC.presence_of_element_located((by, value))
+            )
+        except TimeoutException:
+            print(f"Timeout waiting for element: {value}")
+            return None
+ 
+    def get_trending_topics(self):
+        """Fetch trending topics from multiple sources"""
+        trending_topics = set()  # Using set to avoid duplicates
+ 
+        try:
+            # Twitter Trends (Top 50 worldwide)
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+            }
+ 
+            # Method 1: Twitter Trending
+            try:
+                response = requests.get('https://trends24.in/', headers=headers)
+                soup = BeautifulSoup(response.text, 'html.parser')
+                trends = soup.select('.trend-card__list li a')
+                trending_topics.update([trend.text.strip() for trend in trends[:20]])
+            except Exception as e:
+                print(f"Error fetching Twitter trends: {e}")
+ 
+            # Method 2: Google Trends
+            try:
+                response = requests.get(
+                    'https://trends.google.com/trends/api/dailytrends?hl=en-US&tz=-480&geo=US',
+                    headers=headers
+                )
+                json_data = json.loads(response.text[5:])  # Remove ")]}'" from the beginning
+                for trend in json_data['default']['trendingSearchesDays'][0]['trendingSearches']:
+                    trending_topics.add(trend['title']['query'])
+            except Exception as e:
+                print(f"Error fetching Google trends: {e}")
+ 
+            # Method 3: Reddit Popular
+            try:
+                response = requests.get(
+                    'https://www.reddit.com/r/popular.json',
+                    headers=headers
+                )
+                json_data = response.json()
+                for post in json_data['data']['children'][:10]:
+                    trending_topics.add(post['data']['title'])
+            except Exception as e:
+                print(f"Error fetching Reddit trends: {e}")
+ 
+        except Exception as e:
+            print(f"Error in get_trending_topics: {e}")
+ 
+        # Add some general interest topics as fallback
+        fallback_topics = [
+            "Latest technology news",
+            "Popular movies 2024",
+            "Trending music artists",
+            "Latest gaming news",
+            "Popular books 2024",
+            "Tech gadgets review",
+            "Viral social media trends",
+            "Popular TV shows",
+            "Latest science discoveries",
+            "Trending fashion styles"
+        ]
+        trending_topics.update(fallback_topics)
+ 
+        return list(trending_topics)
+ 
+    def check_for_cookies(self):
+        """Comprehensive check for different types of cookie popups"""
+        try:
+            # List of common cookie popup indicators - both footer and center popups
+            cookie_indicators = [
+                # Center popup indicators
+                "//div[contains(@class, 'bnp_rich_div')]",  # Rich dialog popup
+                "//div[@id='bnp_ttc_div']",  # Consent dialog
+                "//div[@id='bnp_container']",  # Cookie container
+                "//div[contains(@class, 'cc_banner')]",  # Common cookie banner class
+                # Footer popup indicators
+                "//div[@id='cookie-banner']",
+                "//div[contains(@class, 'cookie-banner')]",
+                # Additional Bing-specific selectors
+                "//div[@id='thp_notf_div']",  # Notification popup
+                "//div[contains(@class, 'thp_notify_div')]",  # Another notification div
+                # Edge-specific consent popup
+                "//div[@id='consent-modal']",
+                "//div[contains(@class, 'consent-dialog')]"
+            ]
+ 
+            for indicator in cookie_indicators:
+                elements = self.driver.find_elements(By.XPATH, indicator)
+                if elements:
+                    print(f"Detected cookie popup: {indicator}")
+                    return True
+            return False
+        except Exception as e:
+            print(f"Error checking for cookies: {e}")
+            return False
+ 
+    def handle_cookies(self):
+        """Enhanced cookie popup handler for multiple types of popups"""
+        cookie_buttons = [
+            # Center popup reject buttons
+            "//button[contains(@id, 'bnp_btn_reject')]",
+            "//button[@id='reject-all']",
+            "//button[contains(@class, 'reject-all')]",
+            "//button[text()='Reject all']",
+            "//button[contains(text(), 'Reject all')]",
+            "//button[contains(text(), 'Reject')]",
+ 
+            # Specific selectors for the middle page popup
+            "//div[contains(@class, 'bnp_rich_div')]//button[contains(@class, 'reject')]",
+            "//div[@id='bnp_ttc_div']//button[contains(@class, 'reject')]",
+            "//div[@id='bnp_container']//button[contains(@title, 'Reject')]",
+ 
+            # Footer banner reject buttons
+            "//div[@id='cookie-banner']//button[contains(text(), 'Reject')]",
+            "//div[contains(@class, 'cookie-banner')]//button[contains(text(), 'Reject')]",
+ 
+            # Additional Bing-specific buttons
+            "//button[@id='bnp_hfly_cntl']",
+            "//button[@id='bnp_btn_nope']",
+            "//button[@id='bnp_ttc_close']",
+ 
+            # Generic reject buttons with different text variations
+            "//button[contains(text(), 'No, thanks')]",
+            "//button[contains(text(), 'Not now')]",
+            "//button[contains(text(), 'Decline')]",
+            "//button[contains(text(), 'Don't allow')]",
+ 
+            # Fallback to accept buttons if reject is not available
+            "//button[contains(text(), 'Accept')]",
+            "//button[contains(text(), 'Allow')]",
+            "//button[contains(text(), 'I agree')]"
+        ]
+ 
+        # Try to handle popups multiple times as they might appear sequentially
+        max_attempts = 3
+        popups_handled = 0
+ 
+        for attempt in range(max_attempts):
+            found_popup = False
+ 
+            # Check each button pattern
+            for xpath in cookie_buttons:
+                try:
+                    # Find all matching buttons (might be multiple popups)
+                    buttons = self.driver.find_elements(By.XPATH, xpath)
+ 
+                    for button in buttons:
+                        if button.is_displayed():
+                            try:
+                                # Scroll to the button
+                                self.driver.execute_script(
+                                    "arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});",
+                                    button
+                                )
+                                time.sleep(0.5)
+ 
+                                # Try multiple click methods
+                                try:
+                                    button.click()
+                                except:
+                                    try:
+                                        self.driver.execute_script("arguments[0].click();", button)
+                                    except:
+                                        continue
+ 
+                                print(f"Successfully clicked cookie button: {xpath}")
+                                found_popup = True
+                                popups_handled += 1
+                                time.sleep(1)  # Wait for popup to disappear
+ 
+                            except Exception as e:
+                                print(f"Failed to click button {xpath}: {str(e)}")
+                                continue
+ 
+                except Exception as e:
+                    continue
+ 
+            if not found_popup:
+                print(f"No more cookie popups found after handling {popups_handled} popups")
+                break
+ 
+            time.sleep(1)  # Wait before next attempt
+ 
+        return popups_handled > 0
+ 
+    def search_and_click(self, search_term):
+        """Perform search and click first result with enhanced error handling"""
+        try:
+            # Navigate to Bing
+            self.driver.get("https://www.bing.com")
+            time.sleep(2)
+ 
+            # Only handle cookies if popup is detected
+            if self.check_for_cookies():
+                print("Cookie popup detected, handling it...")
+                self.handle_cookies()
+                time.sleep(1)
+            else:
+                print("No cookie popup detected, proceeding with search...")
+ 
+            # Find and fill search box
+            search_box = self.wait_for_element(By.NAME, "q")
+            if not search_box:
+                raise Exception(f"Could not find search box for term: {search_term}")
+ 
+            search_box.clear()
+            search_box.send_keys(search_term)
+            search_box.send_keys(Keys.RETURN)
+            time.sleep(3)  # Increased wait time for results to load
+ 
+            # Enhanced click functionality with multiple attempts and methods
+            max_retries = 5  # Increased retry attempts
+            for attempt in range(max_retries):
+                try:
+                    # Try different XPath patterns for the first result
+                    xpath_patterns = [
+                        "(//li[@class='b_algo']//a)[1]",
+                        "//div[@id='b_results']//li[contains(@class, 'b_algo')]//h2/a",
+                        "//div[@class='b_title']//h2/a",
+                        "//li[contains(@class, 'b_algo')]//cite/..",  # Parent of cite element
+                        "//div[@id='b_results']//h2/a"
+                    ]
+ 
+                    for xpath in xpath_patterns:
+                        try:
+                            # Wait for element with both presence and clickable conditions
+                            first_result = WebDriverWait(self.driver, 5).until(
+                                EC.element_to_be_clickable((By.XPATH, xpath))
+                            )
+ 
+                            # Scroll element into view
+                            self.driver.execute_script(
+                                "arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});",
+                                first_result
+                            )
+                            time.sleep(1)
+ 
+                            # Try multiple click methods
+                            try:
+                                # First attempt: Regular click
+                                first_result.click()
+                            except Exception as click_error:
+                                print(f"Regular click failed, trying JavaScript click...")
+                                try:
+                                    # Second attempt: JavaScript click
+                                    self.driver.execute_script("arguments[0].click();", first_result)
+                                except Exception as js_error:
+                                    print(f"JavaScript click failed, trying direct navigation...")
+                                    try:
+                                        # Third attempt: Direct navigation
+                                        href = first_result.get_attribute('href')
+                                        if href:
+                                            print(f"Navigating directly to: {href}")
+                                            self.driver.get(href)
+                                        else:
+                                            print("Failed to get href attribute")
+                                            continue
+                                    except Exception as href_error:
+                                        print(f"Direct navigation failed: {str(href_error)}")
+                                        continue
+ 
+                            time.sleep(2)
+                            return True
+ 
+                        except Exception as e:
+                            continue
+ 
+                    print(f"Attempt {attempt + 1}: Could not click result, retrying...")
+                    time.sleep(1)
+ 
+                except Exception as e:
+                    print(f"Click attempt {attempt + 1} failed: {str(e)}")
+                    time.sleep(1)
+ 
+            print(f"Failed to click result for: {search_term} after all attempts")
+            return False
+ 
+        except Exception as e:
+            print(f"Error during search for {search_term}: {str(e)}")
+            return False
+ 
+    def random_search_automation(self, num_searches=10):
+        """Perform random searches using trending topics"""
+        try:
+            print("\n🔍 Fetching trending topics...")
+            trending_topics = self.get_trending_topics()
+ 
+            if not trending_topics:
+                print("❌ No trending topics found. Using fallback topics.")
+                trending_topics = [
+                    "Latest news",
+                    "Popular movies",
+                    "Technology trends",
+                    "Sports updates",
+                    "Music hits"
+                ]
+ 
+            # Randomly select and search topics
+            selected_topics = random.sample(
+                trending_topics,
+                min(num_searches, len(trending_topics))
+            )
+ 
+            print(f"\n✨ Selected {num_searches} random trending topics to search:")
+            for i, topic in enumerate(selected_topics, 1):
+                print(f"{i}. {topic}")
+ 
+            for topic in selected_topics:
+                self.driver.execute_script("window.open('', '_blank')")
+                self.driver.switch_to.window(self.driver.window_handles[-1])
+                print(f"\n🔎 Searching for: {topic}")
+                if not self.search_and_click(topic):
+                    print(f"⚠️ Failed to process topic: {topic}")
+                time.sleep(random.uniform(2, 4))  # Random delay between searches
+ 
+        except Exception as e:
+            print(f"❌ Error in random search automation: {str(e)}")
+ 
+    def run_automation(self):
+        """Main automation function"""
+        try:
+            # Clear the console screen (Windows specific)
+            os.system('cls')
+            
+            print("=" * 60)
+            print("     EDGE BROWSER AUTOMATION TOOL FOR WINDOWS")
+            print("=" * 60)
+            
+            # Ask user for automation type
+            print("\n🤖 Select Automation Type:")
+            print("1. Manual trend input")
+            print("2. Random trending searches")
+            choice = input("Enter your choice (1 or 2): ").strip()
+ 
+            if choice == "1":
+                # Original manual trend input flow
+                self.search_and_click("Copilot.ai")
+                self.handle_cookies()
+ 
+                print("\n🔹 Enter the top 10 trends (each trend will be searched in a new tab)")
+                trends_list = []
+                for i in range(1, 11):
+                    trend = input(f"Enter Trend {i}: ").strip()
+                    if trend:
+                        trends_list.append(f'"{trend}"')
+ 
+                print("\n✅ Captured Trends:")
+                for trend in trends_list:
+                    print(trend)
+ 
+                for trend in trends_list:
+                    self.driver.execute_script("window.open('', '_blank')")
+                    self.driver.switch_to.window(self.driver.window_handles[-1])
+                    if not self.search_and_click(trend):
+                        print(f"⚠️ Failed to process trend: {trend}")
+ 
+            elif choice == "2":
+                # Random trending searches
+                num_searches = int(input("\nEnter number of random searches to perform (1-20): ").strip())
+                num_searches = max(1, min(20, num_searches))  # Limit between 1 and 20
+                self.random_search_automation(num_searches)
+ 
+            else:
+                print("❌ Invalid choice. Exiting...")
+ 
+            input("\nPress Enter to close the browser...")
+ 
+        except Exception as e:
+            print(f"❌ Error in automation: {str(e)}")
+        finally:
+            self.driver.quit()
+ 
+if __name__ == "__main__":
+    automation = EdgeAutomation()
+    automation.run_automation()</code></pre>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary" 
+                        id="copyButton" onclick="copyCode()">Copy Code</button>
             </div>
             <small class="text-body-secondary">Command 2</small>
         </div>
@@ -255,205 +973,30 @@
   </div>
 </div>
 
-<!-- Code Copy Card with Image -->
+
+
 <div class="col-12 mt-3">
   <div class="card shadow-sm">
     <div class="p-3">
-      <img src="Step_3.png" class="card-img-top rounded-3" 
+      <img src="W_Step_6.png" class="card-img-top rounded-3" 
            alt="Code Snippet Thumbnail" 
            style="padding: 5px; border: 3px solid #1BFD9C;">
     </div>
     <div class="card-body">
-        <p class="card-text">This command adds Microsoft's official repository to your Parrot OS so you can install Microsoft Edge.<br> Here’s a quick breakdown:<br>
-
-          Download & convert Microsoft’s GPG key (for package verification).<br>
-          Move it to the trusted keys directory (/etc/apt/trusted.gpg.d/).<br>
-          Add Microsoft Edge’s repository to your system.<br>
-          Remove the temporary key file to keep things clean.<br><br>
-          💡 Allows you to install & update Microsoft Edge on Parrot OS! 🔥</p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">
-curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
-sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge-stable.list'
-sudo rm microsoft.gpg
-        </code></pre>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor &gt; microsoft.gpg
-sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
-sudo sh -c 'echo &quot;deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main&quot; &gt; /etc/apt/sources.list.d/microsoft-edge-stable.list'
-sudo rm microsoft.gpg">Copy</button>
-            </div>
-            <small class="text-body-secondary">Command 3</small>
-        </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_4.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text">sudo apt update refreshes your system's package list from online repositories.<br>
-
-          🔹 Why?<br>
-          ✅ Ensures you get the latest software versions.<br>
-          ✅ Helps install new apps or updates properly.<br>
-          
-          💡 Run this before installing or upgrading any package! 🚀</p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">sudo apt update</code></pre>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="sudo apt update">Copy</button>
-            </div>
-            <small class="text-body-secondary">Command 4</small>
-        </div>
-    </div>
-  </div>
-</div>
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_5.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text">This command navigates into the "Browser_Automation" folder on your Desktop.<br>
-
-          🔹 Breakdown:<br>
-          cd → Change directory.<br>
-          ~/Desktop/Browser_Automation → Takes you to the Browser_Automation folder on your Desktop.<br>
-          💡 Useful for accessing and managing files related to your automation projects! 📂🚀</p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">cd ~/Desktop/Browser_Automation</code></pre>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="cd ~/Desktop/Browser_Automation">Copy</button>
-            </div>
-            <small class="text-body-secondary">Command 5</small>
-        </div>
-    </div>
-  </div>
-</div>
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_6.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text">These commands create and activate a Python virtual environment called myenv for your project.<br>
-
-          🔹 Breakdown:<br>
-          python3 -m venv myenv → Creates a virtual environment named myenv.<br>
-          source myenv/bin/activate → Activates the virtual environment, isolating your Python environment for this project.<br>
-          💡 Keeps your project dependencies separate and organized! 🐍✨</p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">python3 -m venv myenv
-source myenv/bin/activate</code></pre>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="python3 -m venv myenv
-source myenv/bin/activate">Copy</button>
-            </div>
-            <small class="text-body-secondary">Command 6</small>
-        </div>
-    </div>
-  </div>
-</div>
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_7.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text">This command installs essential Python libraries for web automation and scraping.
-          🔹 Breakdown:<br>
-          pip3 → Python’s package manager for installing libraries.<br>
-          install selenium requests beautifulsoup4 → Installs:<br>
-          Selenium → Automates web browsers.<br>
-          Requests → Sends HTTP requests to interact with websites.<br>
-          BeautifulSoup4 → Scrapes and parses HTML data from web pages.<br>
-          💡 These libraries are key for browser automation and web scraping projects! 🚀</p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">pip3 install selenium requests beautifulsoup4</code></pre>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="pip3 install selenium requests beautifulsoup4">Copy</button>
-            </div>
-            <small class="text-body-secondary">Command 7</small>
-        </div>
-    </div>
-  </div>
-</div>
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_8.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text">This command installs the stable version of Microsoft Edge on your system.<br>
-          🔹 Breakdown:<br>
-          sudo apt install → Installs a package using the system’s package manager and 
-          microsoft-edge-stable → Specifies the stable version of Microsoft Edge.<br>
-          💡 Gives you access to the Microsoft Edge browser for browsing or automation! 🌐🚀</p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">sudo apt install microsoft-edge-stable</code></pre>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="sudo apt install microsoft-edge-stable">Copy</button>
-            </div>
-            <small class="text-body-secondary">Command 8</small>
-        </div>
-    </div>
-  </div>
-</div>
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_9.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text" style="word-wrap: break-word; white-space: normal;">
-          This command fixes any broken dependencies that may have occurred during package installations or updates.<br>
-          🔹 Breakdown:<br>
-          sudo apt --fix-broken install → Resolves missing or broken dependencies.<br>
-          -y → Automatically confirms any prompts during the process.<br>
-          💡 Useful when installations fail due to missing or conflicting dependencies! 🛠️🚀
+        <p class="card-text">
+          <b>📂Paste and Save the Code!</b><br>
+          <b>🔹Breakdown:</b><br>
+          Open the <b>EdgeAutomation.py</b> file in <b>Notepad++</b> (or any code editor).<br>
+          Paste the copied code into the file.<br>
+          Press <b>Ctrl + S</b> to save the changes.<br><br>
+          <b>💡 Next Step:</b> Once saved, you're ready to move forward with your automation setup! 🚀<br>
         </p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">sudo apt --fix-broken install -y</code></pre>
+        
         <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="sudo apt --fix-broken install -y">Copy</button>
+                
             </div>
-            <small class="text-body-secondary">Command 9</small>
+            <small class="text-body-secondary">Instruction 5</small>
         </div>
     </div>
   </div>
@@ -461,405 +1004,74 @@ source myenv/bin/activate">Copy</button>
 
 
 
-<!-- Code Copy Card with Image -->
+
 <div class="col-12 mt-3">
   <div class="card shadow-sm">
     <div class="p-3">
-      <img src="Step_10.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
+      <img src="W_Step_8.png" class="card-img-top rounded-3" 
+           alt="Run Automation Script" 
            style="padding: 5px; border: 3px solid #1BFD9C;">
     </div>
     <div class="card-body">
-        <p class="card-text" style="word-wrap: break-word; white-space: normal;">
-          This command displays the installed version of Microsoft Edge on your system.<br>
+        <p class="card-text">
+          <b>▶️ Run Your Automation Script!</b><br><br>
+          <b>🔹 Breakdown:</b><br>
+          - Ensure you have <b>saved and closed</b> the <b>EdgeAutomation.py</b> file.<br>
+          - Locate the <b>run_automation.bat</b> file in the same folder.<br>
+          - <b>Double-click</b> the file to execute the script.<br>
+          - Wait a few moments until a <b>blank Microsoft Edge browser</b> window appears.<br><br>
 
-🔹 Breakdown:<br>
-microsoft-edge --version → Shows the version number of Microsoft Edge currently installed.<br>
-💡 Useful to verify if the browser is installed and to check for updates! 🌐✅
-        </p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">microsoft-edge --version</code></pre>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="microsoft-edge --version">Copy</button>
-            </div>
-            <small class="text-body-secondary">Command 10</small>
-        </div>
-    </div>
-  </div>
-</div>
+          <div class="p-3">
+            <img src="W_Step_9.png" class="card-img-top rounded-3" 
+                 alt="Run Automation Script" 
+                 style="padding: 5px; border: 3px solid #1BFD9C;">
+          </div>
 
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_11.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text" style="word-wrap: break-word; white-space: normal;">
-          These commands update your system and install essential packages for Python development and file management.<br>
-              🔹 Breakdown:<br>
-              1> sudo apt update && sudo apt upgrade -y<br>
-                Updates the package list and upgrades all installed packages to their latest versions and -y automatically confirms any changes.<br>
-              2> sudo apt install -y python3 python3-pip wget unzip<br>
-                python3 → Installs Python 3,
-                python3-pip → Installs the Python package manager, pip.<br>
-                wget → Installs a tool to download files from the internet and unzip → Installs a utility to extract .zip files.<br>
-              💡 Prepares your system for Python development, downloading files, and managing compressed archives! 🐍🚀
-        </p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">sudo apt update && sudo apt upgrade -y<br>sudo apt install -y python3 python3-pip wget unzip</code></pre>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="sudo apt update && sudo apt upgrade -y
-sudo apt install -y python3 python3-pip wget unzip">Copy</button>
-            </div>
-            <small class="text-body-secondary">Command 11</small>
-        </div>
-    </div>
-  </div>
-</div>
-
-
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_12.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text" style="word-wrap: break-word; white-space: normal;">
-          <b style="color: red;">Make sure to replace "133.0.3065.69-1" with your latest version number of your browser.</b><br>
-          This command downloads the Microsoft Edge .deb package directly from the Microsoft repository.<br>
-            🔹 Breakdown:<br>
-            wget → Downloads files from the internet.<br>
-            URL → Points to the specific Microsoft Edge stable version .deb package (133.0.3065.69-1_amd64.deb) for Debian-based systems like Parrot OS.<br>
-            💡 Useful for manually installing Microsoft Edge without using a package manager! 🌐📥
-        </p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">wget https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_133.0.3065.69-1_amd64.deb</code></pre>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="wget https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_133.0.3065.69-1_amd64.deb">Copy</button>
-            </div>
-            <small class="text-body-secondary">Command 12</small>
-        </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_13.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text" style="word-wrap: break-word; white-space: normal;">
-          <b style="color: red;">Make sure to replace "133.0.3065.69-1" with your latest version number of your browser.</b><br>
-          This command installs the Microsoft Edge browser using the .deb package you downloaded.<br>
-          🔹 Breakdown:<br>
-          sudo dpkg -i → Installs a .deb package manually.<br>
-          microsoft-edge-stable_133.0.3065.69-1_amd64.deb → The specific Edge installation package file.<br>
-          💡 Useful when you want to install a specific version of Microsoft Edge directly! 🌐✅
-        </p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">sudo dpkg -i microsoft-edge-stable_133.0.3065.69-1_amd64.deb</code></pre>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="sudo dpkg -i microsoft-edge-stable_133.0.3065.69-1_amd64.deb">Copy</button>
-            </div>
-            <small class="text-body-secondary">Command 13</small>
-        </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_14.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text" style="word-wrap: break-word; white-space: normal;">
-          This command fixes any broken dependencies that may have occurred during package installations or updates.<br>
-          🔹 Breakdown:<br>
-          sudo apt --fix-broken install → Resolves missing or broken dependencies.<br>
-          -y → Automatically confirms any prompts during the process.<br>
-          💡 Useful when installations fail due to missing or conflicting dependencies! 🛠️🚀
-        </p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">sudo apt --fix-broken install -y</code></pre>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="sudo apt --fix-broken install -y">Copy</button>
-            </div>
-            <small class="text-body-secondary">Command 14</small>
-        </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_15.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text" style="word-wrap: break-word; white-space: normal;">
-          This command displays the installed version of Microsoft Edge on your system.<br>
-
-🔹 Breakdown:<br>
-microsoft-edge --version → Shows the version number of Microsoft Edge currently installed.<br>
-💡 Useful to verify if the browser is installed and to check for updates! 🌐✅
-        </p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">microsoft-edge --version</code></pre>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="microsoft-edge --version">Copy</button>
-            </div>
-            <small class="text-body-secondary">Command 15</small>
-        </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_16.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text" style="word-wrap: break-word; white-space: normal;">
-          This command removes the Microsoft Edge .deb installation package from your system.<br>
-          🔹 Breakdown:<br>
-          rm → Deletes the specified file.<br>
-          microsoft-edge-stable_*.deb → Matches and deletes any .deb file for Edge (using * as a wildcard for version numbers).<br>
-          💡 Cleans up your system by removing unnecessary installation files! 🧹🚀
-        </p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">rm microsoft-edge-stable_*.deb</code></pre>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="rm microsoft-edge-stable_*.deb">Copy</button>
-            </div>
-            <small class="text-body-secondary">Command 16</small>
-        </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_17.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text">This command navigates into the "Browser_Automation" folder on your Desktop.<br>
-
-          🔹 Breakdown:<br>
-          cd → Change directory.<br>
-          ~/Desktop/Browser_Automation → Takes you to the Browser_Automation folder on your Desktop.<br>
-          💡 Useful for accessing and managing files related to your automation projects! 📂🚀</p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">cd ~/Desktop/Browser_Automation</code></pre>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="cd ~/Desktop/Browser_Automation">Copy</button>
-            </div>
-            <small class="text-body-secondary">Command 17</small>
-        </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_18.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text" style="word-wrap: break-word; white-space: normal;">
-          <b style="color: red;">Make sure to replace "133.0.3065.69" with your latest version number of your browser.</b><br>
-          This command downloads the Microsoft Edge WebDriver needed for browser automation with Selenium.<br>
-          🔹 Breakdown:<br>
-          wget → Downloads files from the internet.<br>
-          URL → Specifies the location of the Microsoft Edge WebDriver (edgedriver_linux64.zip) for Linux systems, version 133.0.3065.69.<br>
-          💡 Essential for automating Edge browser actions with Selenium! 🖥️🤖
-        </p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">wget https://msedgedriver.azureedge.net/133.0.3065.69/edgedriver_linux64.zip</code></pre>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="wget https://msedgedriver.azureedge.net/133.0.3065.69/edgedriver_linux64.zip">Copy</button>
-            </div>
-            <small class="text-body-secondary">Command 18</small>
-        </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_19.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text" style="word-wrap: break-word; white-space: normal;">
-          These commands extract and move the Edge WebDriver to your project folder, then clean up the downloaded zip file.<br>
-🔹 Breakdown:<br>
-unzip edgedriver_linux64.zip → Extracts the msedgedriver file from the zip.<br>
-mv msedgedriver ~/Desktop/Browser_Automation/ → Moves the msedgedriver to your Browser_Automation folder on the Desktop.<br>
-rm edgedriver_linux64.zip → Deletes the zip file to clean up space.<br>
-💡 Prepares the Edge WebDriver for use in browser automation! 🌐🚀
-        </p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">unzip edgedriver_linux64.zip<br>mv msedgedriver ~/Desktop/Browser_Automation/<br>rm edgedriver_linux64.zip</code></pre>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="unzip edgedriver_linux64.zip
-mv msedgedriver ~/Desktop/Browser_Automation/
-rm edgedriver_linux64.zip">Copy</button>
-            </div>
-            <small class="text-body-secondary">Command 19</small>
-        </div>
-    </div>
-  </div>
-</div>
-
-
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_20.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text" style="word-wrap: break-word; white-space: normal;">
-          This command checks the version of the Microsoft Edge WebDriver you’ve installed.<br>
-          🔹 Breakdown:<br>
-          ./msedgedriver --version → Runs the Edge WebDriver and displays its version.<br>
-          💡 Useful to confirm the WebDriver version matches your Edge browser for automation! 🌐🤖
-        </p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">./msedgedriver --version</code></pre>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="./msedgedriver --version">Copy</button>
-            </div>
-            <small class="text-body-secondary">Command 20</small>
-        </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_21.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text" style="word-wrap: break-word; white-space: normal;">
-          This command runs the Python script Open_Trends.py in your terminal.<br>
-          🔹 Breakdown:<br>
-          python → Runs a Python script.<br>
-          Open_Trends.py → The script you want to execute.<br>
-          💡 Make sure you're in the correct directory, and the required libraries (like Selenium) are installed! 🐍🚀
-        </p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">python Open_Trends.py</code></pre>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="python Open_Trends.py">Copy</button>
-            </div>
-            <small class="text-body-secondary">Command 21</small>
-        </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_21_1.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text" style="word-wrap: break-word; white-space: normal;">
-          Once you see this blank page go the terminal.<br>
-          <b style="color: red;">DO NOT</b> close the Edge Browser.
+          <b>💡 Next Step:</b> If the Edge browser opens, your automation setup is working correctly! 🚀<br>
         </p>
         <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-            </div>
-            <small class="text-body-secondary">Instruction 21_1</small>
+            <div></div> 
+            <small class="text-body-secondary">Instruction 6 & 7</small>
         </div>
     </div>
   </div>
 </div>
 
 
-<!-- Code Copy Card with Image -->
 <div class="col-12 mt-3">
   <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_21_2.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
     <div class="card-body">
-        <p class="card-text" style="word-wrap: break-word; white-space: normal;">
-          Enter your choice : (1 or 2).<br>
-          <b style="color: darkcyan;">Most Prefered Choice 2</b> as the Edge Automation is for.
+        <p class="card-text">
+          <b>🖥️ Select Automation Type in CMD</b><br><br>
+          <b>🔹 Breakdown:</b><br>
+          <b>- Return to the CMD window that appeared after running run_automation.bat.</b><br>
+          <b style="color: red;">-  Do NOT close the empty Edge browser window—it is part of the automation process.</b><br>
+          <b>- In the CMD window, you will see a prompt asking you to select an automation type.</b><br>
+          <b>- Enter the number 2 for "Random trending searches" as this is the automation task.</b><br>
+          <b>- Press Enter to confirm your choice.</b><br>
+          <b>- Next, enter the number of searches you want the automation to perform and press Enter again.</b><br><br>
+          <b>💡 Next Step: </b><br>
+          <b>Once you enter the number of searches, the automation will start executing! 🚀</b><br>
         </p>
+
+        <div class="p-3">
+          <img src="W_Step_10.png" class="card-img-top rounded-3" 
+               alt="Select Automation Type" 
+               style="padding: 5px; border: 3px solid #1BFD9C;">
+        </div>
+        <div class="p-3">
+          <img src="W_Step_11.png" class="card-img-top rounded-3" 
+               alt="Select Automation Type" 
+               style="padding: 5px; border: 3px solid #1BFD9C;">
+        </div>
+        <div class="p-3">
+          <img src="W_Step_12.png" class="card-img-top rounded-3" 
+               alt="Select Automation Type" 
+               style="padding: 5px; border: 3px solid #1BFD9C;">
+        </div>
         <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-            </div>
-            <small class="text-body-secondary">Instruction 21_2</small>
+            <div></div>
+            <small class="text-body-secondary">Instruction 8 , 9 & 10</small>
         </div>
     </div>
   </div>
@@ -869,88 +1081,6 @@ rm edgedriver_linux64.zip">Copy</button>
 <!-- Code Copy Card with Image -->
 <div class="col-12 mt-3">
   <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_21_3.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text" style="word-wrap: break-word; white-space: normal;">
-          Enter the number of Searches you want the Script to perform.<br>
-          <b style="color: darkcyan;">Each Search Opens 2 tabs.</b><br>
-          <b style="color: red;">DO NOT</b> open any other Apps or Change the Window.<br>
-          <b style="color: darkmagenta;">Let the Magic Happen !</b>
-
-        </p>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-            </div>
-            <small class="text-body-secondary">Instruction 21_3</small>
-        </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_21_4.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text" style="word-wrap: break-word; white-space: normal;">
-          <b style="color: yellow;">After all searches are done.</b><br>
-          Open Terminal and press <b style="color: green;">ENTER</b> .
-        </p>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-            </div>
-            <small class="text-body-secondary">Command 21_4</small>
-        </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_22.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
-    <div class="card-body">
-        <p class="card-text" style="word-wrap: break-word; white-space: normal;">
-          This command deactivates the Python virtual environment you’ve been working in.<br>
-          🔹 Breakdown:<br>
-          deactivate → Exits the virtual environment and returns to the global Python environment.<br>
-          💡 Use this when you're done working in your virtual environment! 🐍✅
-        </p>
-        <pre class="bg-light p-3 rounded text-dark"><code class="fw-bold">deactivate</code></pre>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" 
-                        data-code="deactivate">Copy</button>
-            </div>
-            <small class="text-body-secondary">Command 22</small>
-        </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Code Copy Card with Image -->
-<div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="p-3">
-      <img src="Step_23.png" class="card-img-top rounded-3" 
-           alt="Code Snippet Thumbnail" 
-           style="padding: 5px; border: 3px solid #1BFD9C;">
-    </div>
     <div class="card-body">
         <p class="card-text" style="word-wrap: break-word; white-space: normal;">
           <b>Repeat</b> this in <b style="color: yellow;">Virtual Environment </b> and in the <b style="color: yellow;"> directory "Browser_Automation"</b>  again and again until the complete number of points are earned.<br>
@@ -959,14 +1089,30 @@ rm edgedriver_linux64.zip">Copy</button>
         <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
             </div>
-            <small class="text-body-secondary">Command 23</small>
+            <small class="text-body-secondary">Instruction 11</small>
         </div>
     </div>
   </div>
 </div>
 
+<!-- Code Copy Card with Image -->
+<div class="col-12 mt-3">
+  <div class="card shadow-sm">
+    <div class="card-body">
+        <p class="card-text" style="word-wrap: break-word; white-space: normal;">
+          <b style="color: yellow;">After all searches are done.</b><br>
+          Open Terminal and press <b style="color: green;">ENTER</b> .
+        </p>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+            </div>
+            <small class="text-body-secondary">Instruction 12</small>
+        </div>
+    </div>
+  </div>
+</div>
 
-<!-- Code Copy Card with Image & Link -->
+<!-- Code Copy Card with Image & Link 
 <div class="col-12 mt-3">
   <div class="card shadow-sm">
     <div class="card-body">
@@ -994,6 +1140,7 @@ rm edgedriver_linux64.zip">Copy</button>
     </div>
   </div>
 </div>
+-->
 
 
 
@@ -1019,7 +1166,6 @@ rm edgedriver_linux64.zip">Copy</button>
   </div>
 </div>
 -->
-
 
 </div>
 </div>
@@ -1115,6 +1261,41 @@ rm edgedriver_linux64.zip">Copy</button>
         });
     });
 </script>
+
+<!-- JavaScript for copy functionality -->
+<script>
+  function copyCode() {
+      const codeElement = document.getElementById('automation-code');
+      if (!codeElement) {
+          alert('Could not find code element');
+          return;
+      }
+      
+      // Create a temporary textarea element to copy from
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = codeElement.textContent;
+      document.body.appendChild(tempTextArea);
+      
+      // Select the text and copy
+      tempTextArea.select();
+      tempTextArea.setSelectionRange(0, 99999); // For mobile devices
+      
+      try {
+          const successful = document.execCommand('copy');
+          const copyBtn = document.getElementById('copyButton');
+          copyBtn.textContent = successful ? 'Copied!' : 'Failed to copy';
+          
+          setTimeout(function() {
+              copyBtn.textContent = 'Copy Code';
+          }, 2000);
+      } catch (err) {
+          console.error('Unable to copy', err);
+      }
+      
+      // Remove the temporary element
+      document.body.removeChild(tempTextArea);
+  }
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
